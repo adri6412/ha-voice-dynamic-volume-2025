@@ -59,7 +59,7 @@ sensor:
   # Peak amplitude sensor (Replaced with sound_level platform)
   - platform: sound_level
     microphone: i2s_mics
-    update_interval: 5s
+    measurement_duration: 5s
     passive: true
     peak:
       name: "Ambient Sound Peak"
