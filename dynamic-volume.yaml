@@ -1,9 +1,3 @@
-# Dynamic Volume Control for Home Assistant Voice PE
-# Repository: https://github.com/jaapp/ha-voice-dynamic-volume
-# 
-# This package adds ambient sound sensing and dynamic volume control
-# to Home Assistant Voice PE devices.
-
 globals:
   - id: dynamic_volume_enabled
     type: bool
@@ -92,12 +86,12 @@ sensor:
       }
 
       // Start mic if needed
-      if (!id(asr_mic)->is_running()) {
-        id(asr_mic)->start();
+      if (!id(i2s_mics)->is_running()) {
+        id(i2s_mics)->start();
         delay(50); // Give mic time to start
       }
 
-      size_t bytes_read = id(asr_mic)->read(
+      size_t bytes_read = id(i2s_mics)->read(
         input_buffer, 
         INPUT_BUFFER_SIZE * sizeof(int16_t),
         0
@@ -231,6 +225,10 @@ interval:
     then:
       - script.execute: update_dynamic_volume
 
+logger:
+  level: INFO
+  logs:
+    dynamic_volume: INFO
 logger:
   level: INFO
   logs:
